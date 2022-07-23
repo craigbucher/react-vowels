@@ -1,32 +1,31 @@
+
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import SubmitButton from './components/SubmitButton'
+import InputField from './components/InputField'
+import DisplayWord from './components/DisplayWord'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Use an array for the state so that we can keep a list of all words entered
+  const [word, setWord] = useState([])
+
+  // Takes the input from the text box and adds it to the word list whenever the submit button is pressed
+  const targetWord = () => {
+    let newWord = document.getElementById('input').value
+    let newData = [...word, newWord]
+    setWord(newData)
+  }
+
 
   return (
-    <div className="App">
+    <div className='App'>
+      <h1>React Vowels</h1>
+      <InputField />
+      <SubmitButton handleClick={targetWord} />    {/* passes a prop called 'handleClick' to the button to trigger the 'targetWord' function */}
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <DisplayWord word={word} /> {/* passes the word state as a prop to DisplayWord component */}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
